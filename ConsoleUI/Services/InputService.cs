@@ -16,6 +16,7 @@ namespace ConsoleUI.Services
         private const string Delimiter = "Add comma delimiter";
         private const string SingleQuotes = "Add single quotes ('text')";
         private const string DoubleQuotes = "Add double quotes (\"text\")";
+        private const string RemoveDuplicates = "Remove duplicates (case insensitive -> \"apple\" and \"Apple\" are considered as duplication.";
 
         public List<string> InputConsumer()
         {
@@ -38,6 +39,7 @@ namespace ConsoleUI.Services
             var selectedActions = AnsiConsole.Prompt(new MultiSelectionPrompt<string>()
                 .Title("\n[yellow]Select actions to apply on inserted items:[/]")
                 .AddChoices(
+                    RemoveDuplicates,
                     Delimiter,
                     SingleQuotes,
                     DoubleQuotes
@@ -53,6 +55,11 @@ namespace ConsoleUI.Services
 
         public List<string> ApplyActions(List<string> actions, List<string> userInput)
         {
+            if (actions.Contains(RemoveDuplicates))
+            {
+                userInput = _dataProcessor.RemoveDuplicates(userInput);
+            }
+
             if (actions.Contains(SingleQuotes))
             {
                 userInput = _dataProcessor.ApplySingleQuotes(userInput);
