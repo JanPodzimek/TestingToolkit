@@ -1,4 +1,5 @@
 ﻿using ConsoleUI.Services;
+using ConsoleUI.StringProcessorTool;
 using Microsoft.Extensions.DependencyInjection;
 using ToolkitBE;
 
@@ -11,8 +12,8 @@ namespace ConsoleUI.Configuration
         public GlobalSetup()
         {
             var services = new ServiceCollection();
-            services.AddSingleton<DataProcessor>();
-            services.AddSingleton<InputService>();
+            services.AddSingleton<StringProcessorService>();
+            services.AddSingleton<StringProcessorInputService>();
             services.AddSingleton<WorkflowService>();
             services.AddSingleton<MenuService>();
             ServiceProvider = services.BuildServiceProvider();

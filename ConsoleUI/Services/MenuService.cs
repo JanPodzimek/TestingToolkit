@@ -1,5 +1,4 @@
-﻿
-using Spectre.Console;
+﻿using Spectre.Console;
 
 namespace ConsoleUI.Services
 {
@@ -7,28 +6,32 @@ namespace ConsoleUI.Services
     {
         public enum MenuOption
         {
-            InsertValues,
+            StringProcessor,
+            CreateUser,
             Exit
         }
 
-        private const string InsertValuesText = "✅ Insert values";
+        private const string StringProcessorText = "✅ String processor";
+        private const string CreateUserText = "✅ Create new user (IDS)";
         private const string ExitText = "⚠️ Exit";
 
         public MenuOption ShowMainMenu()
         {
             var choice = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
-                    .Title("\n[yellow]Choose an action:[/]")
+                    .Title("\n[yellow]Choose a tool:[/]")
                     .HighlightStyle("green")
                     .AddChoices(new[]
                     {
-                    InsertValuesText,
+                    StringProcessorText,
+                    CreateUserText,
                     ExitText
                     }));
 
             return choice switch
             {
-                InsertValuesText => MenuOption.InsertValues,
+                StringProcessorText => MenuOption.StringProcessor,
+                CreateUserText => MenuOption.CreateUser,
                 ExitText => MenuOption.Exit,
                 _ => throw new Exception("Unrecognized menu option")
             };

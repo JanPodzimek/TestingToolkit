@@ -1,6 +1,6 @@
 ﻿namespace ToolkitBE
 {
-    public class DataProcessor
+    public class StringProcessorService
     {
         public List<string> ApplyDelimiter(List<string> data, string delimiter = ",")
         {

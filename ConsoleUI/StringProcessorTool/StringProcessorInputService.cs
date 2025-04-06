@@ -1,22 +1,66 @@
-﻿using System;
+﻿using ConsoleUI.Interfaces;
+using ConsoleUI.Services;
 using Spectre.Console;
 using ToolkitBE;
 using ToolkitBE.Extensions;
 
-namespace ConsoleUI.Services
+namespace ConsoleUI.StringProcessorTool
 {
-    public class InputService
+    public class StringProcessorInputService : IInputService
     {
-        private readonly DataProcessor _dataProcessor;
-        public InputService(DataProcessor dataProcessor)
+        private readonly StringProcessorService _dataProcessor;
+        private readonly MenuService _menuService;
+        public StringProcessorInputService(StringProcessorService dataProcessor, MenuService menuService)
         {
             _dataProcessor = dataProcessor;
+            _menuService = menuService;
         }
 
         private const string Delimiter = "Add comma delimiter";
         private const string SingleQuotes = "Add single quotes ('text')";
         private const string DoubleQuotes = "Add double quotes (\"text\")";
         private const string RemoveDuplicates = "Remove duplicates (case insensitive -> \"apple\" and \"Apple\" are considered as duplication.";
+
+        public void Run()
+        {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            List<string> selectedActions = new();
+            List<string> userInput = InputConsumer();
+            bool validActions;
+
+            do
+            {
+                validActions = true;
+
+                try
+                {
+                    selectedActions = AskUserToSelectActions();
+                }
+                catch (Exception ex)
+                {
+                    AnsiConsole.Clear();
+                    AnsiConsole.MarkupLine($"[red]Error:[/] {ex.Message}");
+                    validActions = false;
+                }
+            } while (validActions == false);
+
+            userInput = ApplyActions(selectedActions, userInput);
+
+            AnsiConsole.MarkupLine("[yellow]Output:[/]");
+            foreach (var item in userInput)
+            {
+                Console.WriteLine($"{item}");
+            }
+
+            End();
+        }
+
+        public void End()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Press any to key to continue...");
+            Console.ReadLine();
+        }
 
         public List<string> InputConsumer()
         {
