@@ -1,4 +1,4 @@
-﻿using ConsoleUI.StringProcessorTool;
+﻿using ConsoleUI.InputServices;
 using Spectre.Console;
 
 namespace ConsoleUI.Services

@@ -1,5 +1,4 @@
 ﻿using ConsoleUI.Interfaces;
-using ConsoleUI.Services;
 using Spectre.Console;
 using ToolkitBE;
 using ToolkitBE.Extensions;
@@ -9,17 +8,15 @@ namespace ConsoleUI.StringProcessorTool
     public class StringProcessorInputService : IInputService
     {
         private readonly StringProcessorService _dataProcessor;
-        private readonly MenuService _menuService;
-        public StringProcessorInputService(StringProcessorService dataProcessor, MenuService menuService)
+        public StringProcessorInputService(StringProcessorService dataProcessor)
         {
             _dataProcessor = dataProcessor;
-            _menuService = menuService;
         }
 
         private const string Delimiter = "Add comma delimiter";
         private const string SingleQuotes = "Add single quotes ('text')";
         private const string DoubleQuotes = "Add double quotes (\"text\")";
-        private const string RemoveDuplicates = "Remove duplicates (case insensitive -> \"apple\" and \"Apple\" are considered as duplication.";
+        private const string RemoveDuplicates = "Remove duplicates (case insensitive -> \"apple\" and \"Apple\" are considered as duplication)";
 
         public void Run()
         {
@@ -75,7 +72,7 @@ namespace ConsoleUI.StringProcessorTool
 
             string userInput = string.Join(" ", lines);
 
-            return userInput.CreateList();
+            return userInput.Split(" ").ToList();
         }
 
         public List<string> AskUserToSelectActions()

@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CreateUser\CreateUser.csproj" />
     <ProjectReference Include="..\ToolkitBE\StringProcessor.csproj" />
   </ItemGroup>
 
