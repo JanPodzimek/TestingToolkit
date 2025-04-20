@@ -1,25 +1,22 @@
 ﻿using ConsoleUI.Interfaces;
+using ConsoleUI.Services.MenuServices;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using Spectre.Console;
 
 namespace ConsoleUI.Services
 {
     public class WorkflowService : IWorkflowService
     {
-        private readonly ILogger<WorkflowService> _log;
         private readonly IConfiguration _config;
         private readonly IInputService _stringProcessorInputService;
-        private readonly IMenuService _menuService;
+        private readonly IMenuService<MenuService.MenuOption> _menuService;
 
 
         public WorkflowService(
-            ILogger<WorkflowService> log,
             IConfiguration config,
             IInputService inputService,
-            IMenuService menuService)
+            IMenuService<MenuService.MenuOption> menuService)
         {
-            _log = log;
             _config = config;
             _stringProcessorInputService = inputService;
             _menuService = menuService;
@@ -32,7 +29,7 @@ namespace ConsoleUI.Services
             while (true)
             {
                 AnsiConsole.Clear();
-                var selectedMenuOption = _menuService.ShowMainMenu();
+                var selectedMenuOption = _menuService.ShowMenu();
 
                 if (selectedMenuOption == MenuService.MenuOption.StringProcessor)
                 {

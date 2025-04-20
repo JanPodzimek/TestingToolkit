@@ -1,9 +1,4 @@
-﻿using ConsoleUI.Services;
-
-namespace ConsoleUI.Interfaces
+﻿public interface IMenuService<T>
 {
-    public interface IMenuService
-    {
-        MenuService.MenuOption ShowMainMenu();
-    }
+    T ShowMenu();
 }

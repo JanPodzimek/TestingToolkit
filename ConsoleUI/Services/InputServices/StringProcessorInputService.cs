@@ -6,6 +6,21 @@ namespace ConsoleUI.Services.InputServices
 {
     public class StringProcessorInputService : IInputService
     {
+        private readonly IMenuService<StringProcessorMenuOption> _stringProcessorMenuService;
+
+        public StringProcessorInputService(
+            IMenuService<StringProcessorMenuOption> stringProcessorMenuService)
+        {
+            _stringProcessorMenuService = stringProcessorMenuService;
+        }
+
+        public enum StringProcessorMenuOption
+        {
+            StringMutator,
+            StringGenerator,
+            Return
+        }
+
         private const string Delimiter = "Add comma delimiter";
         private const string SingleQuotes = "Add single quotes ('text')";
         private const string DoubleQuotes = "Add double quotes (\"text\")";
@@ -13,46 +28,61 @@ namespace ConsoleUI.Services.InputServices
 
         public void Run()
         {
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
-            List<string> selectedActions = new();
-            List<string> userInput = InputConsumer();
-            bool validActions;
+            AnsiConsole.Clear();
 
-            do
+            var selectedMenuOption = _stringProcessorMenuService.ShowMenu();
+
+            if (selectedMenuOption == StringProcessorMenuOption.StringMutator)
             {
-                validActions = true;
-
-                try
-                {
-                    selectedActions = AskUserToSelectActions();
-                }
-                catch (Exception ex)
-                {
-                    AnsiConsole.Clear();
-                    AnsiConsole.MarkupLine($"[red]Error:[/] {ex.Message}");
-                    validActions = false;
-                }
-            } while (validActions == false);
-
-            userInput = ApplyActions(selectedActions, userInput);
-
-            AnsiConsole.MarkupLine("[yellow]Output:[/]");
-            foreach (var item in userInput)
-            {
-                Console.WriteLine($"{item}");
+                RunMutator();
             }
-
-            End();
+            else if (selectedMenuOption == StringProcessorMenuOption.StringGenerator)
+            {
+                RunGenerator();
+            }
+            else if (selectedMenuOption == StringProcessorMenuOption.Return)
+            {
+                return;
+            }
         }
 
         public void End()
         {
             Console.WriteLine();
             Console.WriteLine("Press any to key to continue...");
-            Console.ReadLine();
+            Console.ReadKey(true);
         }
 
-        public List<string> InputConsumer()
+        public int GetStringLength()
+        {
+            int length = 0;
+            string? textInput;
+            bool isValidLength;
+
+            do
+            {
+                AnsiConsole.Markup("[yellow]How long string to generate? (chars): [/] ");
+                textInput = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(textInput))
+                {
+                    AnsiConsole.MarkupLine("[red]Input cannot be empty. Please try again.[/]");
+                    isValidLength = false;
+                    continue;
+                }
+
+                isValidLength = int.TryParse(textInput, out length);
+                if (!isValidLength)
+                {
+                    AnsiConsole.MarkupLine($"[red]\"{textInput}\" is not a valid number. Please enter a valid integer.[/]");
+                }
+
+            } while (!isValidLength);
+
+            return length;
+        }
+
+        public List<string> GetValuesForMutation()
         {
             AnsiConsole.MarkupLine($"[yellow]Insert values. \nAfter inserting, press {Markup.Escape("[Enter]")} twice to finish:[/]");
             List<string> lines = new();
@@ -109,6 +139,50 @@ namespace ConsoleUI.Services.InputServices
             }
 
             return userInput;
+        }
+
+        void RunMutator()
+        {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            List<string> selectedActions = new();
+            List<string> userInput = GetValuesForMutation();
+            bool validActions;
+
+            do
+            {
+                validActions = true;
+
+                try
+                {
+                    selectedActions = AskUserToSelectActions();
+                }
+                catch (Exception ex)
+                {
+                    AnsiConsole.Clear();
+                    AnsiConsole.MarkupLine($"[red]Error:[/] {ex.Message}");
+                    validActions = false;
+                }
+            } while (validActions == false);
+
+            userInput = ApplyActions(selectedActions, userInput);
+
+            AnsiConsole.MarkupLine("[yellow]Output:[/]");
+            foreach (var item in userInput)
+            {
+                Console.WriteLine($"{item}");
+            }
+
+            End();
+        }
+
+        void RunGenerator()
+        {
+            int stringLength = GetStringLength();
+
+            AnsiConsole.MarkupLine("[yellow]\nOutput:[/]");
+            Console.WriteLine(Generator.GenerateString(stringLength));
+
+            End();
         }
     }
 }

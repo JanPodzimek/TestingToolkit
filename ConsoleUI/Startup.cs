@@ -1,6 +1,7 @@
 ﻿using ConsoleUI.Interfaces;
 using ConsoleUI.Services;
 using ConsoleUI.Services.InputServices;
+using ConsoleUI.Services.MenuServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,9 +27,9 @@ namespace ConsoleUI
             var host = Host.CreateDefaultBuilder(args)
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddSingleton<IMenuService, MenuService>();
+                    services.AddSingleton<IMenuService<MenuService.MenuOption>, MenuService>();
+                    services.AddSingleton<IMenuService<StringProcessorInputService.StringProcessorMenuOption>, StringProcessorMenuService>();
                     services.AddSingleton<IInputService, StringProcessorInputService>();
-                    services.AddSingleton<IWorkflowService, WorkflowService>();
                 })
                 .UseSerilog()
                 .Build();
