@@ -1,8 +1,8 @@
-﻿namespace ToolkitBE
+﻿namespace StringProcessor
 {
-    public class StringProcessorService
+    public static class Mutator
     {
-        public List<string> ApplyDelimiter(List<string> data, string delimiter = ",")
+        public static List<string> ApplyDelimiter(List<string> data, string delimiter = ",")
         {
             return data.Select((item, index) =>
                 index != data.Count - 1
@@ -11,17 +11,17 @@
             ).ToList();
         }
 
-        public List<string> ApplySingleQuotes(List<string> data)
+        public static List<string> ApplySingleQuotes(List<string> data)
         {
             return data.Select(item => "'" + item + "'").ToList();
         }
 
-        public List<string> ApplyDoubleQuotes(List<string> data)
+        public static List<string> ApplyDoubleQuotes(List<string> data)
         {
             return data.Select(item => "\"" + item + "\"").ToList();
         }
 
-        public List<string> RemoveDuplicates(List<string> data)
+        public static List<string> RemoveDuplicates(List<string> data)
         {
             return data.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
         }

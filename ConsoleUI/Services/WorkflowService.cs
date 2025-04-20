@@ -1,16 +1,26 @@
-﻿using ConsoleUI.Services.InputServices;
+﻿using ConsoleUI.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Spectre.Console;
 
 namespace ConsoleUI.Services
 {
-    public class WorkflowService
+    public class WorkflowService : IWorkflowService
     {
-        private readonly StringProcessorInputService _stringProcessorInputService;
-        private readonly MenuService _menuService;
-        
+        private readonly ILogger<WorkflowService> _log;
+        private readonly IConfiguration _config;
+        private readonly IInputService _stringProcessorInputService;
+        private readonly IMenuService _menuService;
 
-        public WorkflowService(StringProcessorInputService inputService, MenuService menuService)
+
+        public WorkflowService(
+            ILogger<WorkflowService> log,
+            IConfiguration config,
+            IInputService inputService,
+            IMenuService menuService)
         {
+            _log = log;
+            _config = config;
             _stringProcessorInputService = inputService;
             _menuService = menuService;
         }
@@ -18,6 +28,7 @@ namespace ConsoleUI.Services
         public void Run()
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
+
             while (true)
             {
                 AnsiConsole.Clear();
@@ -33,7 +44,7 @@ namespace ConsoleUI.Services
                 }
                 else if (selectedMenuOption == MenuService.MenuOption.Exit)
                 {
-                    Console.WriteLine("👋 Goodbye!");
+                    Console.WriteLine($"{_config.GetValue<string>("Greeting")}");
                     return;
                 }
             }

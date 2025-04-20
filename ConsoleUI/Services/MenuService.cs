@@ -1,8 +1,9 @@
-﻿using Spectre.Console;
+﻿using ConsoleUI.Interfaces;
+using Spectre.Console;
 
 namespace ConsoleUI.Services
 {
-    public class MenuService
+    public class MenuService : IMenuService
     {
         public enum MenuOption
         {

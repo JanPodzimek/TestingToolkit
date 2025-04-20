@@ -1,17 +1,11 @@
 ﻿using ConsoleUI.Interfaces;
 using Spectre.Console;
-using ToolkitBE;
+using StringProcessor;
 
 namespace ConsoleUI.Services.InputServices
 {
     public class StringProcessorInputService : IInputService
     {
-        private readonly StringProcessorService _dataProcessor;
-        public StringProcessorInputService(StringProcessorService dataProcessor)
-        {
-            _dataProcessor = dataProcessor;
-        }
-
         private const string Delimiter = "Add comma delimiter";
         private const string SingleQuotes = "Add single quotes ('text')";
         private const string DoubleQuotes = "Add double quotes (\"text\")";
@@ -79,10 +73,10 @@ namespace ConsoleUI.Services.InputServices
             var selectedActions = AnsiConsole.Prompt(new MultiSelectionPrompt<string>()
                 .Title("\n[yellow]Select actions to apply on inserted items:[/]")
                 .AddChoices(
-                    RemoveDuplicates,
                     Delimiter,
                     SingleQuotes,
-                    DoubleQuotes
+                    DoubleQuotes,
+                    RemoveDuplicates
             ));
 
             if (selectedActions.Contains(SingleQuotes) && selectedActions.Contains(DoubleQuotes))
@@ -97,21 +91,21 @@ namespace ConsoleUI.Services.InputServices
         {
             if (actions.Contains(RemoveDuplicates))
             {
-                userInput = _dataProcessor.RemoveDuplicates(userInput);
+                userInput = Mutator.RemoveDuplicates(userInput);
             }
 
             if (actions.Contains(SingleQuotes))
             {
-                userInput = _dataProcessor.ApplySingleQuotes(userInput);
+                userInput = Mutator.ApplySingleQuotes(userInput);
             }
             else if (actions.Contains(DoubleQuotes))
             {
-                userInput = _dataProcessor.ApplyDoubleQuotes(userInput);
+                userInput = Mutator.ApplyDoubleQuotes(userInput);
             }
             
             if (actions.Contains(Delimiter))
             {
-                userInput = _dataProcessor.ApplyDelimiter(userInput);
+                userInput = Mutator.ApplyDelimiter(userInput);
             }
 
             return userInput;
