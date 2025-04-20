@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35828.75 d17.13
+VisualStudioVersion = 17.13.35828.75
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUI", "ConsoleUI\ConsoleUI.csproj", "{0EAEDA13-B7DF-4B58-AC7A-0BCB95F2F127}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringProcessor", "ToolkitBE\StringProcessor.csproj", "{32916FD1-B606-403B-BB04-F53711BB3CEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateUser", "CreateUser\CreateUser.csproj", "{0F5601DA-ED25-45E6-A6CB-7346DABE5468}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityUserCreator", "IdentityUserCreator\IdentityUserCreator.csproj", "{82C50A90-78C8-439F-959D-D1265CC38D5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{32916FD1-B606-403B-BB04-F53711BB3CEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32916FD1-B606-403B-BB04-F53711BB3CEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32916FD1-B606-403B-BB04-F53711BB3CEC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0F5601DA-ED25-45E6-A6CB-7346DABE5468}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F5601DA-ED25-45E6-A6CB-7346DABE5468}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F5601DA-ED25-45E6-A6CB-7346DABE5468}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F5601DA-ED25-45E6-A6CB-7346DABE5468}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82C50A90-78C8-439F-959D-D1265CC38D5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82C50A90-78C8-439F-959D-D1265CC38D5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82C50A90-78C8-439F-959D-D1265CC38D5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82C50A90-78C8-439F-959D-D1265CC38D5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

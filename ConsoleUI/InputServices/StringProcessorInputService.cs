@@ -1,9 +1,8 @@
 ﻿using ConsoleUI.Interfaces;
 using Spectre.Console;
 using ToolkitBE;
-using ToolkitBE.Extensions;
 
-namespace ConsoleUI.StringProcessorTool
+namespace ConsoleUI.InputServices
 {
     public class StringProcessorInputService : IInputService
     {
