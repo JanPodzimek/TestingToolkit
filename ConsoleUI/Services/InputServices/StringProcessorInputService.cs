@@ -2,7 +2,7 @@
 using Spectre.Console;
 using ToolkitBE;
 
-namespace ConsoleUI.InputServices
+namespace ConsoleUI.Services.InputServices
 {
     public class StringProcessorInputService : IInputService
     {

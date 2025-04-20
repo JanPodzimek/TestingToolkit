@@ -1,5 +1,5 @@
-﻿using ConsoleUI.InputServices;
-using ConsoleUI.Services;
+﻿using ConsoleUI.Services;
+using ConsoleUI.Services.InputServices;
 using Microsoft.Extensions.DependencyInjection;
 using ToolkitBE;
 

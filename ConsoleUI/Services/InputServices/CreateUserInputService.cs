@@ -1,6 +1,6 @@
 ﻿using ConsoleUI.Interfaces;
 
-namespace ConsoleUI.InputServices
+namespace ConsoleUI.Services.InputServices
 {
     public class CreateUserInputService : IInputService
     {

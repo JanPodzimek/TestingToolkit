@@ -1,4 +1,4 @@
-﻿using ConsoleUI.InputServices;
+﻿using ConsoleUI.Services.InputServices;
 using Spectre.Console;
 
 namespace ConsoleUI.Services
