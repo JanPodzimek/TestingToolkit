@@ -1,6 +1,7 @@
 ﻿using ConsoleUI.Interfaces;
 using Spectre.Console;
 using StringProcessor;
+using ConsoleUI.Enums;
 
 namespace ConsoleUI.Services.InputServices
 {
@@ -12,13 +13,6 @@ namespace ConsoleUI.Services.InputServices
             IMenuService<StringProcessorMenuOption> stringProcessorMenuService)
         {
             _stringProcessorMenuService = stringProcessorMenuService;
-        }
-
-        public enum StringProcessorMenuOption
-        {
-            StringMutator,
-            StringGenerator,
-            Return
         }
 
         private const string Delimiter = "Add comma delimiter";

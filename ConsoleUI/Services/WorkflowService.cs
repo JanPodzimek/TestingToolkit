@@ -2,6 +2,7 @@
 using ConsoleUI.Services.MenuServices;
 using Microsoft.Extensions.Configuration;
 using Spectre.Console;
+using ConsoleUI.Enums;
 
 namespace ConsoleUI.Services
 {
@@ -9,13 +10,13 @@ namespace ConsoleUI.Services
     {
         private readonly IConfiguration _config;
         private readonly IInputService _stringProcessorInputService;
-        private readonly IMenuService<MenuService.MenuOption> _menuService;
+        private readonly IMenuService<MenuOption> _menuService;
 
 
         public WorkflowService(
             IConfiguration config,
             IInputService inputService,
-            IMenuService<MenuService.MenuOption> menuService)
+            IMenuService<MenuOption> menuService)
         {
             _config = config;
             _stringProcessorInputService = inputService;
@@ -31,15 +32,15 @@ namespace ConsoleUI.Services
                 AnsiConsole.Clear();
                 var selectedMenuOption = _menuService.ShowMenu();
 
-                if (selectedMenuOption == MenuService.MenuOption.StringProcessor)
+                if (selectedMenuOption == MenuOption.StringProcessor)
                 {
                     _stringProcessorInputService.Run();
                 }
-                else if (selectedMenuOption == MenuService.MenuOption.CreateUser)
+                else if (selectedMenuOption == MenuOption.CreateUser)
                 {
 
                 }
-                else if (selectedMenuOption == MenuService.MenuOption.Exit)
+                else if (selectedMenuOption == MenuOption.Exit)
                 {
                     Console.WriteLine($"{_config.GetValue<string>("Greeting")}");
                     return;

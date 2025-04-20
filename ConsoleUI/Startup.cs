@@ -1,5 +1,6 @@
 ﻿using ConsoleUI.Interfaces;
 using ConsoleUI.Services;
+using ConsoleUI.Enums;
 using ConsoleUI.Services.InputServices;
 using ConsoleUI.Services.MenuServices;
 using Microsoft.Extensions.Configuration;
@@ -27,8 +28,8 @@ namespace ConsoleUI
             var host = Host.CreateDefaultBuilder(args)
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddSingleton<IMenuService<MenuService.MenuOption>, MenuService>();
-                    services.AddSingleton<IMenuService<StringProcessorInputService.StringProcessorMenuOption>, StringProcessorMenuService>();
+                    services.AddSingleton<IMenuService<MenuOption>, MenuService>();
+                    services.AddSingleton<IMenuService<StringProcessorMenuOption>, StringProcessorMenuService>();
                     services.AddSingleton<IInputService, StringProcessorInputService>();
                 })
                 .UseSerilog()

@@ -1,14 +1,10 @@
-﻿namespace ConsoleUI.Services.MenuServices
-{
-    public class MenuService : IMenuService<MenuService.MenuOption>
-    {
-        public enum MenuOption
-        {
-            StringProcessor,
-            CreateUser,
-            Exit
-        }
+﻿using ConsoleUI.Enums;
 
+namespace ConsoleUI.Services.MenuServices
+
+{
+    public class MenuService : IMenuService<MenuOption>
+    {
         public MenuOption ShowMenu()
         {
             var options = new Dictionary<string, MenuOption>
