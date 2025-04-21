@@ -47,33 +47,24 @@ namespace ConsoleUI.Services.InputServices
             Console.ReadKey(true);
         }
 
-        public int GetStringLength()
+        public string GetStringLength()
         {
-            int length = 0;
             string? textInput;
-            bool isValidLength;
 
             do
             {
-                AnsiConsole.Markup("[yellow]How long string to generate? (chars): [/] ");
+                AnsiConsole.Markup("[yellow]How long string? (chars): [/] ");
                 textInput = Console.ReadLine();
 
                 if (string.IsNullOrWhiteSpace(textInput))
                 {
+                    AnsiConsole.Clear();
                     AnsiConsole.MarkupLine("[red]Input cannot be empty. Please try again.[/]");
-                    isValidLength = false;
-                    continue;
                 }
 
-                isValidLength = int.TryParse(textInput, out length);
-                if (!isValidLength)
-                {
-                    AnsiConsole.MarkupLine($"[red]\"{textInput}\" is not a valid number. Please enter a valid integer.[/]");
-                }
+            } while (string.IsNullOrEmpty(textInput));
 
-            } while (!isValidLength);
-
-            return length;
+            return textInput;
         }
 
         public List<string> GetValuesForMutation()
@@ -171,10 +162,21 @@ namespace ConsoleUI.Services.InputServices
 
         void RunGenerator()
         {
-            int stringLength = GetStringLength();
+            int length = 0;
 
-            AnsiConsole.MarkupLine("[yellow]\nOutput:[/]");
-            Console.WriteLine(Generator.GenerateString(stringLength));
+            string userInput = GetStringLength();
+            bool charCounterDeactivated = int.TryParse(userInput, out length);
+
+            if (charCounterDeactivated)
+            {
+                length = int.Parse(userInput);
+                AnsiConsole.MarkupLine("[yellow]\nOutput:[/]");
+                Console.WriteLine(Generator.GenerateString(length));
+            } 
+            else
+            {
+                AnsiConsole.MarkupLine($"[red]{userInput.Length} -> Char counter was applied on invalid user's input.[/]");
+            }
 
             End();
         }
