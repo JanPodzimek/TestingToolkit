@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ToolkitBE\StringProcessor.csproj" />
+    <ProjectReference Include="..\StringProcessor\StringProcessor.csproj" />
   </ItemGroup>
 
   <ItemGroup>
