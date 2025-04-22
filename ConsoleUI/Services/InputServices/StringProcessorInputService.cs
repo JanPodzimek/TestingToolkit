@@ -10,8 +10,7 @@ namespace ConsoleUI.Services.InputServices
     {
         private readonly IMenuService<StringProcessorMenuOption> _stringProcessorMenuService;
 
-        public StringProcessorInputService(
-            IMenuService<StringProcessorMenuOption> stringProcessorMenuService)
+        public StringProcessorInputService(IMenuService<StringProcessorMenuOption> stringProcessorMenuService)
         {
             _stringProcessorMenuService = stringProcessorMenuService;
         }
@@ -41,27 +40,6 @@ namespace ConsoleUI.Services.InputServices
             }
 
             return Task.CompletedTask;
-        }
-
-
-        public string GetStringLength()
-        {
-            string? textInput;
-
-            do
-            {
-                AnsiConsole.Markup("[yellow]How long string? (chars): [/] ");
-                textInput = Console.ReadLine();
-
-                if (string.IsNullOrWhiteSpace(textInput))
-                {
-                    AnsiConsole.Clear();
-                    AnsiConsole.MarkupLine("[red]Input cannot be empty. Please try again.[/]");
-                }
-
-            } while (string.IsNullOrEmpty(textInput));
-
-            return textInput;
         }
 
         public List<string> GetValuesForMutation()
@@ -161,7 +139,7 @@ namespace ConsoleUI.Services.InputServices
         {
             int length = 0;
 
-            string userInput = GetStringLength();
+            string userInput = InputHelper.GetUserInput("[yellow]How long string? (chars): [/] ", "[red]Input cannot be empty. Please try again.[/]");
             bool charCounterDeactivated = int.TryParse(userInput, out length);
 
             if (charCounterDeactivated)

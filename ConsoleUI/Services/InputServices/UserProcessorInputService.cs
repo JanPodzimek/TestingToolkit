@@ -1,5 +1,5 @@
 ﻿using System.Net;
-using System.Text;
+using ConsoleUI.Enums;
 using ConsoleUI.Helpers;
 using ConsoleUI.Interfaces;
 using Serilog;
@@ -10,41 +10,117 @@ namespace ConsoleUI.Services.InputServices
 {
     public class UserProcessorInputService : IInputService
     {
-        public async Task Run()
+        private readonly IMenuService<UserProcessorMenuOption> _userProcessorMenuService;
+
+        public UserProcessorInputService(IMenuService<UserProcessorMenuOption> userProcessorMenuService)
         {
+            _userProcessorMenuService = userProcessorMenuService;
+        }
+        public Task Run()
+        {
+            AnsiConsole.Clear();
+
+            var selectedMenuOption = _userProcessorMenuService.ShowMenu();
+
+            if (selectedMenuOption == UserProcessorMenuOption.RandomLogin)
+            {
+                return GenerateRandomLogin();
+            }
+            else if (selectedMenuOption == UserProcessorMenuOption.CustomLogin)
+            {
+                return GenerateCustomLogin();
+            }
+            else if (selectedMenuOption == UserProcessorMenuOption.Return)
+            {
+                return Task.CompletedTask;
+            }
+
+            return Task.CompletedTask;
+        }
+
+        public async Task GenerateCustomLogin()
+        {
+            string customLogin = InputHelper.GetUserInput(
+                "[yellow]Enter the login: [/] ",
+                "[red]Input cannot be empty. Please try again.[/]"
+                );
+
+            var result = await GenerateLogin(customLogin);
+
+            if (result.ResponseCode == HttpStatusCode.OK && string.IsNullOrEmpty(result.Message))
+            {
+                Log.Logger.Information("Response status code: {responseCodeInt} {responseCodeText}",
+                        (int)result.ResponseCode,
+                        result.ResponseCode);
+                Log.Logger.Information("User successfully created!");
+                Console.WriteLine();
+
+                Log.Logger.Information($"Login:    {result.Login}");
+                Log.Logger.Information($"Password: {result.Password}");
+            }
+            else if (result.ResponseCode == HttpStatusCode.OK && !string.IsNullOrEmpty(result.Message))
+            {
+                int i = result.Message.IndexOf(':');
+                string alteredMessage = i >= 0 ? result.Message.Substring(i + 1).Trim() : result.Message;
+
+                Console.WriteLine();
+                Log.Logger.Error($"Invalid login: \"{customLogin}\"");
+                Log.Logger.Error($"{alteredMessage}");
+                Console.WriteLine();
+                Log.Logger.Information("Try again");
+            }
+            else
+            {
+                Log.Logger.Warning("Response status code: {responseCodeInt} {responseCodeText}",
+                        (int)result.ResponseCode,
+                        result.ResponseCode);
+            }
+
+            InputHelper.End();
+        }
+
+        public async Task GenerateRandomLogin()
+        {
+            var result = await GenerateLogin();
+
+            if (result.ResponseCode == HttpStatusCode.OK && string.IsNullOrEmpty(result.Message))
+            {
+                Log.Logger.Information("Response status code: {responseCodeInt} {responseCodeText}",
+                        (int)result.ResponseCode,
+                        result.ResponseCode);
+                Log.Logger.Information("User successfully created!");
+                Console.WriteLine();
+
+                Log.Logger.Information($"Login:    {result.Login}");
+                Log.Logger.Information($"Password: {result.Password}");
+            }
+            else
+            {
+                Log.Logger.Warning("Response status code: {responseCodeInt} {responseCodeText}",
+                    (int)result.ResponseCode,
+                    result.ResponseCode);
+                Console.WriteLine();
+            }
+
+            InputHelper.End();
+        }
+
+        public async Task<RegistrationResultModel> GenerateLogin(string? login = default)
+        {
+            RegistrationResultModel result = new();
             AnsiConsole.Clear();
 
             try
             {
                 Log.Logger.Information("Processing request...");
-                var result = await Creator.CreateUser();
-
-                if (result.ResponseCode == HttpStatusCode.OK)
-                {
-                    Log.Logger.Information("Response status code: {responseCodeInt} {responseCodeText}", 
-                        (int)result.ResponseCode, 
-                        result.ResponseCode);
-                    Console.WriteLine();
-                    Log.Logger.Information($"Login   : {result.Login}");
-                    Log.Logger.Information($"Password: {result.Password}");
-                }
-                else
-                {
-                    Log.Logger.Warning("Response status code: {responseCodeInt} {responseCodeText}",
-                        (int)result.ResponseCode,
-                        result.ResponseCode);
-                    Console.WriteLine();
-                }
+                result = await Creator.CreateUser(login);
             }
             catch (Exception ex)
             {
-                AnsiConsole.MarkupLine($"[red]Error creating user:[/] {ex.Message}");
-                InputHelper.End();
-                
-                return;
+                throw new($"Error while creating new user:[/] {ex.Message}");
             }
 
-            InputHelper.End();
+            return result;
         }
     }
 }

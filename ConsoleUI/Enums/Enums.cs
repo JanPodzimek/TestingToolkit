@@ -13,4 +13,11 @@
         StringGenerator,
         Return
     }
+
+    public enum UserProcessorMenuOption
+    {
+        RandomLogin,
+        CustomLogin,
+        Return
+    }
 }

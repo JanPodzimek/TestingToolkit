@@ -33,6 +33,7 @@ namespace ConsoleUI
 
                     services.AddSingleton<IMenuService<MainMenuOption>, MainMenuService>();
                     services.AddSingleton<IMenuService<StringProcessorMenuOption>, StringProcessorMenuService>();
+                    services.AddSingleton<IMenuService<UserProcessorMenuOption>, UserProcessorMenuService>();
 
                     services.AddSingleton<IInputServiceFactory, InputServiceFactory>();
                 })
