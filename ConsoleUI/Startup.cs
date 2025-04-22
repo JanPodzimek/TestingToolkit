@@ -12,7 +12,7 @@ namespace ConsoleUI
 {
     public static class Startup
     {
-        public static void Run(string[] args)
+        public static Task Run(string[] args)
         {
             var builder = new ConfigurationBuilder();
             BuildConfig(builder);
@@ -28,15 +28,19 @@ namespace ConsoleUI
             var host = Host.CreateDefaultBuilder(args)
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddSingleton<IMenuService<MenuOption>, MenuService>();
+                    services.AddTransient<StringProcessorInputService>();
+                    services.AddTransient<UserProcessorInputService>();
+
+                    services.AddSingleton<IMenuService<MainMenuOption>, MainMenuService>();
                     services.AddSingleton<IMenuService<StringProcessorMenuOption>, StringProcessorMenuService>();
-                    services.AddSingleton<IInputService, StringProcessorInputService>();
+
+                    services.AddSingleton<IInputServiceFactory, InputServiceFactory>();
                 })
                 .UseSerilog()
                 .Build();
 
             var svc = ActivatorUtilities.CreateInstance<WorkflowService>(host.Services);
-            svc.Run();
+            return svc.Run();
         }
 
         private static void BuildConfig(IConfigurationBuilder builder)

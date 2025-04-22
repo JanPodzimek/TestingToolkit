@@ -2,6 +2,6 @@
 {
     public interface IInputService
     {
-        void Run();
+        Task Run();
     }
 }

@@ -2,6 +2,7 @@
 using Spectre.Console;
 using StringProcessor;
 using ConsoleUI.Enums;
+using ConsoleUI.Helpers;
 
 namespace ConsoleUI.Services.InputServices
 {
@@ -20,7 +21,7 @@ namespace ConsoleUI.Services.InputServices
         private const string DoubleQuotes = "Add double quotes (\"text\")";
         private const string RemoveDuplicates = "Remove duplicates (case insensitive -> \"apple\" and \"Apple\" are considered as duplication)";
 
-        public void Run()
+        public Task Run()
         {
             AnsiConsole.Clear();
 
@@ -36,16 +37,12 @@ namespace ConsoleUI.Services.InputServices
             }
             else if (selectedMenuOption == StringProcessorMenuOption.Return)
             {
-                return;
+                return Task.CompletedTask;
             }
+
+            return Task.CompletedTask;
         }
 
-        public void End()
-        {
-            Console.WriteLine();
-            Console.WriteLine("Press any to key to continue...");
-            Console.ReadKey(true);
-        }
 
         public string GetStringLength()
         {
@@ -157,7 +154,7 @@ namespace ConsoleUI.Services.InputServices
                 Console.WriteLine($"{item}");
             }
 
-            End();
+            InputHelper.End();
         }
 
         void RunGenerator()
@@ -178,7 +175,7 @@ namespace ConsoleUI.Services.InputServices
                 AnsiConsole.MarkupLine($"[red]{userInput.Length} -> Char counter was applied on invalid user's input.[/]");
             }
 
-            End();
+            InputHelper.End();
         }
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IWorkflowService
     {
-        void Run();
+        Task Run();
     }
 }
