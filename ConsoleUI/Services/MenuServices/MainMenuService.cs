@@ -9,8 +9,8 @@ namespace ConsoleUI.Services.MenuServices
         {
             var options = new Dictionary<string, MainMenuOption>
             {
-                { "✅ String Processor", MainMenuOption.StringProcessor },
-                { "✅ Create new user (IDS)", MainMenuOption.CreateUser },
+                { "⚙️ String Processor", MainMenuOption.StringProcessor },
+                { "🧑 Create new user (IDS)", MainMenuOption.CreateUser },
                 { "⚠️ Exit", MainMenuOption.Exit }
             };
 
