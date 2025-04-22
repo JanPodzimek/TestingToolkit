@@ -65,7 +65,7 @@ namespace ConsoleUI.Services.InputServices
 
                 Console.WriteLine();
                 Log.Logger.Error($"Invalid login: \"{customLogin}\"");
-                Log.Logger.Error($"{alteredMessage}");
+                Log.Logger.Error($"Response message: \"{alteredMessage}\"");
                 Console.WriteLine();
                 Log.Logger.Information("Try again");
             }

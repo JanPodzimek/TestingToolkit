@@ -3,6 +3,7 @@ using Spectre.Console;
 using StringProcessor;
 using ConsoleUI.Enums;
 using ConsoleUI.Helpers;
+using Serilog;
 
 namespace ConsoleUI.Services.InputServices
 {
@@ -139,7 +140,7 @@ namespace ConsoleUI.Services.InputServices
         {
             int length = 0;
 
-            string userInput = InputHelper.GetUserInput("[yellow]How long string? (chars): [/] ", "[red]Input cannot be empty. Please try again.[/]");
+            string userInput = InputHelper.GetUserInput("[yellow]How long string to generate? (chars): [/] ", "[red]Input cannot be empty. Please try again.[/]");
             bool charCounterDeactivated = int.TryParse(userInput, out length);
 
             if (charCounterDeactivated)
@@ -150,7 +151,9 @@ namespace ConsoleUI.Services.InputServices
             } 
             else
             {
-                AnsiConsole.MarkupLine($"[red]{userInput.Length} -> Char counter was applied on invalid user's input.[/]");
+                Console.WriteLine();
+                Log.Logger.Information($"Length: {userInput.Length}");
+                Log.Logger.Warning($"Char counter was automatically applied on invalid user's input.");
             }
 
             InputHelper.End();
