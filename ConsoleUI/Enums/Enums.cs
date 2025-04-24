@@ -4,6 +4,7 @@
     {
         StringProcessor,
         CreateUser,
+        GetRegistrationNumber,
         Exit
     }
 
@@ -18,6 +19,16 @@
     {
         RandomLogin,
         CustomLogin,
+        Return
+    }
+
+    public enum RegistrationNumberMenuOption
+    {
+        VatPayer,
+        VatPayerWithMultipleBankAccounts,
+        VatPayerWithoutBankAccount,
+        NoVatPayer,
+        WithoutAddress,
         Return
     }
 }

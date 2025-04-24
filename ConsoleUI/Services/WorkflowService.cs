@@ -10,15 +10,18 @@ namespace ConsoleUI.Services
         private readonly IConfiguration _config;
         private readonly IInputServiceFactory _factory;
         private readonly IMenuService<MainMenuOption> _menuService;
+        private readonly HttpClient _httpClient;
 
         public WorkflowService(
             IConfiguration config,
             IInputServiceFactory factory,
-            IMenuService<MainMenuOption> menuService)
+            IMenuService<MainMenuOption> menuService,
+            HttpClient httpClient)
         {
             _config = config;
             _factory = factory;
             _menuService = menuService;
+            _httpClient = httpClient;
         }
 
         public async Task Run()
@@ -34,19 +37,25 @@ namespace ConsoleUI.Services
                 {
                     // get the StringProcessorInputService from the factory
                     var svc = _factory.Get(MainMenuOption.StringProcessor);
-                    await svc.Run();
+                    await svc.Run(_httpClient);
                 }
                 else if (selected == MainMenuOption.CreateUser)
                 {
                     // get the UserProcessorInputService from the factory
                     var svc = _factory.Get(MainMenuOption.CreateUser);
-                    await svc.Run();
+                    await svc.Run(_httpClient);
+                }
+                else if (selected == MainMenuOption.GetRegistrationNumber)
+                {
+                    var svc = _factory.Get(MainMenuOption.GetRegistrationNumber);
+                    await svc.Run(_httpClient);
                 }
                 else if (selected == MainMenuOption.Exit)
                 {
                     Console.WriteLine(_config.GetValue<string>("Greeting"));
                     return;
                 }
+                
             }
         }
     }

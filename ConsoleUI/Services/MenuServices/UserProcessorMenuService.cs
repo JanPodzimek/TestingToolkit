@@ -7,11 +7,11 @@ namespace ConsoleUI.Services.MenuServices
         public UserProcessorMenuOption ShowMenu()
         {
             var options = new Dictionary<string, UserProcessorMenuOption>
-        {
-            { "✅ Generate random login", UserProcessorMenuOption.RandomLogin },
-            { "✅ Set custom login", UserProcessorMenuOption.CustomLogin },
-            { "🔙 Return", UserProcessorMenuOption.Return }
-        };
+            {
+                { "✅ Generate random login", UserProcessorMenuOption.RandomLogin },
+                { "✅ Set custom login", UserProcessorMenuOption.CustomLogin },
+                { "🔙 Return", UserProcessorMenuOption.Return }
+            };
 
             return MenuHelper.ShowMenu("\n[yellow]Choose feature:[/]", options);
         }

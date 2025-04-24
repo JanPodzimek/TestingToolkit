@@ -21,7 +21,7 @@ namespace ConsoleUI.Services.InputServices
         private const string DoubleQuotes = "Add double quotes (\"text\")";
         private const string RemoveDuplicates = "Remove duplicates (case insensitive -> \"apple\" and \"Apple\" are considered as duplication)";
 
-        public Task Run()
+        public Task Run(HttpClient httpClient)
         {
             AnsiConsole.Clear();
 

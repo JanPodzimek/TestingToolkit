@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using System.Net.Http.Headers;
+using TradeApiCaller.Authentication;
 
 namespace ConsoleUI
 {
@@ -28,19 +30,31 @@ namespace ConsoleUI
             var host = Host.CreateDefaultBuilder(args)
                 .ConfigureServices((context, services) =>
                 {
+                    
+
                     services.AddTransient<StringProcessorInputService>();
                     services.AddTransient<UserProcessorInputService>();
+                    services.AddTransient<RegistrationNumberInputService>();
+
+                    services.AddHttpClient<WorkflowService>((client) =>
+                    {
+                        client.BaseAddress = new Uri(context.Configuration["Api:BaseUrl"]);
+                        client.DefaultRequestHeaders.UserAgent.ParseAdd("Chrome/135.0.0.0");
+                        client.DefaultRequestHeaders.Accept
+                              .Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    });
 
                     services.AddSingleton<IMenuService<MainMenuOption>, MainMenuService>();
                     services.AddSingleton<IMenuService<StringProcessorMenuOption>, StringProcessorMenuService>();
                     services.AddSingleton<IMenuService<UserProcessorMenuOption>, UserProcessorMenuService>();
+                    services.AddSingleton<IMenuService<RegistrationNumberMenuOption>, RegistrationNumberMenuService>();
 
                     services.AddSingleton<IInputServiceFactory, InputServiceFactory>();
                 })
                 .UseSerilog()
                 .Build();
 
-            var svc = ActivatorUtilities.CreateInstance<WorkflowService>(host.Services);
+            var svc = host.Services.GetRequiredService<WorkflowService>();
             return svc.Run();
         }
 
