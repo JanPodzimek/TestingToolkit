@@ -1,4 +1,5 @@
-﻿using Spectre.Console;
+﻿using Serilog;
+using Spectre.Console;
 
 namespace ConsoleUI.Helpers
 {
@@ -7,7 +8,7 @@ namespace ConsoleUI.Helpers
         public static void End()
         {
             Console.WriteLine();
-            Console.WriteLine("Press any to key to continue...");
+            Log.Logger.Information("Press any to key to continue...");
             Console.ReadKey(true);
         }
 

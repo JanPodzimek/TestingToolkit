@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Net.Http.Headers;
 using TradeApiCaller.Authentication;
+using TradeApiCaller.RegistrationNumber;
 
 namespace ConsoleUI
 {
@@ -47,7 +48,7 @@ namespace ConsoleUI
                     services.AddSingleton<IMenuService<MainMenuOption>, MainMenuService>();
                     services.AddSingleton<IMenuService<StringProcessorMenuOption>, StringProcessorMenuService>();
                     services.AddSingleton<IMenuService<UserProcessorMenuOption>, UserProcessorMenuService>();
-                    services.AddSingleton<IMenuService<RegistrationNumberMenuOption>, RegistrationNumberMenuService>();
+                    services.AddSingleton<IMenuService<RegistrationNumberType>, RegistrationNumberMenuService>();
 
                     services.AddSingleton<IInputServiceFactory, InputServiceFactory>();
                 })

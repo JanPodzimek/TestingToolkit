@@ -17,7 +17,7 @@ namespace ConsoleUI.Services.InputServices
             _userProcessorMenuService = userProcessorMenuService;
         }
 
-        public Task Run(HttpClient httpClient)
+        public Task Run(HttpClient client)
         {
             AnsiConsole.Clear();
 

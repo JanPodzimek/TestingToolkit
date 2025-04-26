@@ -2,6 +2,6 @@
 {
     public interface IInputService
     {
-        Task Run(HttpClient httpCLient);
+        Task Run(HttpClient httpClient);
     }
 }
