@@ -21,13 +21,22 @@ namespace ConsoleUI.Services
 
             var username = config.GetValue<string>("Api:AdminCredentials:Login");
             var password = config.GetValue<string>("Api:AdminCredentials:Password");
+            string token = string.Empty;
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
                 throw new InvalidOperationException("Admin credentials are missing in appsettings.");
             }
 
-            var token = await IdentityService.GetTokenValueAsync(username, password);
+            try
+            {
+                token = await IdentityService.GetTokenValueAsync(username, password);
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
             httpClient.DefaultRequestHeaders.Add("authorization", $"Bearer {token}");
 
             while (true)

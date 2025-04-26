@@ -2,9 +2,9 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Web;
+using Serilog;
 
 namespace TradeApiCaller.Authentication
 {
@@ -68,10 +68,23 @@ namespace TradeApiCaller.Authentication
             string challenge, string username, string password)
         {
             // 1) GET login page
-            var page = await _client.GetStringAsync(Consts.LoginUrl);
-            var token = ExtractAntiForgeryToken(page);
-            if (string.IsNullOrEmpty(token))
-                throw new InvalidOperationException("Anti-forgery token not found.");
+            string token = string.Empty;
+
+            try
+            {
+                var page = await _client.GetStringAsync(Consts.LoginUrl);
+                token = ExtractAntiForgeryToken(page);
+                if (string.IsNullOrEmpty(token))
+                    throw new InvalidOperationException("Anti-forgery token not found.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+                Log.Logger.Error(ex.Message);
+                Log.Logger.Error("Check your VPN connection and run the app again.");
+
+                throw new AccessViolationException();
+            }
 
             // 2) POST credentials
             var form = new Dictionary<string, string>
