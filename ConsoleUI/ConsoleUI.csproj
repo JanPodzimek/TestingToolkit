@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <ApplicationIcon>1511309_pencil_ruler_icon.ico</ApplicationIcon>
+    <UserSecretsId>6fb1e9f3-0e17-48d1-b60a-ad19fc69c201</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

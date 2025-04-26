@@ -30,11 +30,11 @@ namespace TradeApiCaller.Authentication
             _client.DefaultRequestHeaders.Add("accept", "application/json, text/json, text/x-json, text/javascript, application/xml, text/xml, */*");
         }
 
-        public static async Task<string> GetTokenValueAsync(string username, string password)
+        public static async Task<string> GetTokenValueAsync(string login, string password)
         {
             var (verifier, challenge) = GeneratePKCE();
 
-            var loginResp = await GetLoginResponseAsync(challenge, username, password);
+            var loginResp = await GetLoginResponseAsync(challenge, login, password);
             if (loginResp.StatusCode != HttpStatusCode.Found)
                 throw new InvalidOperationException($"Expected 302 but got {(int)loginResp.StatusCode}");
 

@@ -19,13 +19,22 @@ namespace ConsoleUI.Services
 
             Log.Logger.Information("Retrieving authorization token for API calls...");
 
-            var username = config.GetValue<string>("Api:AdminCredentials:Login");
-            var password = config.GetValue<string>("Api:AdminCredentials:Password");
+            var username = config.GetValue<string>("AdminCredentials:Login");
+            var password = config.GetValue<string>("AdminCredentials:Password");
             string token = string.Empty;
 
-            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            try
             {
-                throw new InvalidOperationException("Admin credentials are missing in appsettings.");
+                if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+                {
+                    throw new InvalidOperationException("Admin credentials are missing in appsettings.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+                Log.Logger.Error(ex.Message);
+                return;
             }
 
             try
