@@ -3,28 +3,19 @@ using ConsoleUI.Interfaces;
 
 namespace ConsoleUI.Services.InputServices
 {
-    public class InputServiceFactory : IInputServiceFactory
+    public class InputServiceFactory(
+            StringProcessorInputService stringSvc,
+            UserProcessorInputService userSvc,
+            RegistrationNumberInputService regNumberSvc,
+            HashIdInputService hashIdSvc) : IInputServiceFactory
     {
-        private readonly StringProcessorInputService _stringSvc;
-        private readonly UserProcessorInputService _userSvc;
-        private readonly RegistrationNumberInputService _regNumberSvc;
-
-        public InputServiceFactory(
-            StringProcessorInputService stringSvc, 
-            UserProcessorInputService userSvc, 
-            RegistrationNumberInputService regNumberSvc)
-        {
-            _stringSvc = stringSvc;
-            _userSvc = userSvc;
-            _regNumberSvc = regNumberSvc;
-        }
-
         public IInputService Get(MainMenuOption option) =>
             option switch
             {
-                MainMenuOption.StringProcessor => _stringSvc,
-                MainMenuOption.CreateUser => _userSvc,
-                MainMenuOption.GetRegistrationNumber => _regNumberSvc,
+                MainMenuOption.StringProcessor => stringSvc,
+                MainMenuOption.CreateUser => userSvc,
+                MainMenuOption.GetRegistrationNumber => regNumberSvc,
+                MainMenuOption.ResolveHashId => hashIdSvc,
                 _ => throw new ArgumentOutOfRangeException(nameof(option))
             };
     }

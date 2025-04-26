@@ -52,12 +52,16 @@ namespace ConsoleUI.Services
                     var svc = factory.Get(MainMenuOption.GetRegistrationNumber);
                     await svc.Run(httpClient);
                 }
+                else if (selected == MainMenuOption.ResolveHashId)
+                {
+                    var svc = factory.Get(MainMenuOption.ResolveHashId);
+                    await svc.Run(httpClient);
+                }
                 else if (selected == MainMenuOption.Exit)
                 {
                     Console.WriteLine(config.GetValue<string>("Greeting"));
                     return;
-                }
-                
+                } 
             }
         }
     }

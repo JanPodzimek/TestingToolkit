@@ -8,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Net.Http.Headers;
-using TradeApiCaller.Authentication;
 using TradeApiCaller.RegistrationNumber;
 
 namespace ConsoleUI
@@ -36,6 +35,7 @@ namespace ConsoleUI
                     services.AddTransient<StringProcessorInputService>();
                     services.AddTransient<UserProcessorInputService>();
                     services.AddTransient<RegistrationNumberInputService>();
+                    services.AddTransient<HashIdInputService>();
 
                     services.AddHttpClient<WorkflowService>((client) =>
                     {

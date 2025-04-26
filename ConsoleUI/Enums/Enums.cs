@@ -5,6 +5,7 @@
         StringProcessor,
         CreateUser,
         GetRegistrationNumber,
+        ResolveHashId,
         Exit
     }
 

@@ -11,7 +11,8 @@ namespace ConsoleUI.Services.MenuServices
             {
                 { "⚙️ String Processor", MainMenuOption.StringProcessor },
                 { "🧑 Create new user (IDS)", MainMenuOption.CreateUser },
-                { "🆔 Get registration number (ICO)", MainMenuOption.GetRegistrationNumber },
+                { "📄 Get registration number (ICO)", MainMenuOption.GetRegistrationNumber },
+                { "🆔 Resolve HashId", MainMenuOption.ResolveHashId },
                 { "⚠️ Exit", MainMenuOption.Exit }
             };
 
