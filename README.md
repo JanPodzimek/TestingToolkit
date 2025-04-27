@@ -15,8 +15,6 @@ Users can navigate through the menu using **arrow keys** and confirm their actio
 > **Note:**  
 > We are planning to migrate the UI to **WPF** in the future.
 
-The `appsettings.json` file contains settings for **Serilog** and **test admin credentials**, allowing the app to access **Trade API endpoints** (only DEV access).
-
 ---
 
 ## StringProcessor
@@ -28,13 +26,15 @@ The `StringProcessor` project includes two main features:
   If the input is not a valid integer, a **character counter** feature is automatically applied.
 
 - **StringMutator**  
-  Takes a string value (e.g., `123 321 435 435`) and applies user-selected transformations:
+  Takes a string value (e.g., `123 321 435 435 321`) and applies user-selected transformations:
   - `ApplyDelimiter`
   - `ApplySingleQuotes`
   - `ApplyDoubleQuotes`
   - `RemoveDuplicates`
   
   > Multiple actions can be applied at once.
+
+  Result may look like e.g. `'123', '321', '435'`)
 
 > **Planned Enhancements:**  
 > New features will be added to `StringMutator` in the future.

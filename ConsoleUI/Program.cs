@@ -29,7 +29,8 @@ namespace ConsoleUI
                     config.SetBasePath(Directory.GetCurrentDirectory())
                        .AddJsonFile("appsettings.json", false, true)
                        .AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", true, true)
-                       .AddUserSecrets<Program>()
+                       .AddUserSecrets<Program>(optional: true)
+                       .AddJsonFile("credentials.json", optional: true, reloadOnChange: true)
                        .AddEnvironmentVariables();
                 })
 
@@ -60,7 +61,6 @@ namespace ConsoleUI
 
                     services.AddSingleton<IInputServiceFactory, InputServiceFactory>();
                 })
-                .UseSerilog()
                 .Build();
 
             var svc = host.Services.GetRequiredService<WorkflowService>();
