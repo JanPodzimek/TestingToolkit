@@ -39,8 +39,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="credentials.json">
-		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	    <ExcludeFromPublish>true</ExcludeFromPublish>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

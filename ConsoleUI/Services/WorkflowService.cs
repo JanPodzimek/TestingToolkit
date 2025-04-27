@@ -45,8 +45,14 @@ namespace ConsoleUI.Services
             {
                 token = await IdentityService.GetTokenValueAsync(login, password);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine();
+                Log.Logger.Error("Token was not retrieved successfully");
+                Log.Logger.Error("Check 'credentials.json' for valid Login/Password");
+                Console.WriteLine();
+                Log.Logger.Information("Press any key to close the app...");
+                Console.ReadKey();
                 return;
             }
 
@@ -81,7 +87,7 @@ namespace ConsoleUI.Services
                 }
                 else if (selected == MainMenuOption.Exit)
                 {
-                    Console.WriteLine(config.GetValue<string>("Greeting"));
+                    Log.Logger.Information("👋 Goodbye!");
                     return;
                 } 
             }

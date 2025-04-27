@@ -7,6 +7,39 @@ This repository is divided into four projects:
 - **UserProcessor**
 - **TradeApiCaller**
 
+Each of them is described separately below.
+
+---
+
+## First Run Setup
+
+Before you can use the app for the first time, please follow these steps:
+
+- **Download and extract** the app files.
+- **Run the executable** (`.exe`) file.
+- If `credentials.json` is **missing**, the app will automatically create a blank one **or** you can create it manually.
+- If you create it manually, use the following format:
+
+```json
+{
+  "AdminCredentials": {
+    "Login": "your-login-here",
+    "Password": "your-password-here"
+  }
+}
+```
+
+- **Fill in your credentials** inside the `credentials.json` file.
+- **Save** the file.
+- **Restart** the application.
+
+> **Important:**  
+> Make sure `credentials.json` is placed in the **same folder** as the `.exe` file.
+
+After completing these steps, the app will load your credentials correctly and you will have access to all features.
+
+---
+
 ## ConsoleUI
 
 The `ConsoleUI` project serves as a simple user interface for the app.  
@@ -31,10 +64,10 @@ The `StringProcessor` project includes two main features:
   - `ApplySingleQuotes`
   - `ApplyDoubleQuotes`
   - `RemoveDuplicates`
-  
+
   > Multiple actions can be applied at once.
 
-  Result may look like e.g. `'123', '321', '435'`)
+  Example result: `'123', '321', '435'`
 
 > **Planned Enhancements:**  
 > New features will be added to `StringMutator` in the future.

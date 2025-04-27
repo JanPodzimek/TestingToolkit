@@ -62,6 +62,34 @@ namespace ConsoleUI
                 })
                 .Build();
 
+            var credentialsFilePath = Path.Combine(Directory.GetCurrentDirectory(), "credentials.json");
+            var blankCredentials = new
+            {
+                Login = "your-login-here",
+                Password = "your-password-here"
+            };
+
+            if (!File.Exists(credentialsFilePath))
+            {
+                Console.WriteLine();
+                Log.Logger.Warning("The file 'credentials.json' not found. Creating one...");
+
+                var blankCredentialsJson = System.Text.Json.JsonSerializer.Serialize(
+                    new { AdminCredentials = blankCredentials },
+                    new System.Text.Json.JsonSerializerOptions { WriteIndented = true }
+                );
+
+                File.WriteAllText(credentialsFilePath, blankCredentialsJson);
+
+                Console.WriteLine();
+                Log.Logger.Information("The file 'credentials.json' created with pre-set template");
+                Log.Logger.Information("Created in: {path}", Directory.GetCurrentDirectory());
+                Log.Logger.Information("Fill in your credentials and try again");
+                Log.Logger.Information("Press any key to exit...");
+                Console.ReadKey();
+                Environment.Exit(1);
+            }
+
             var config = host.Services.GetRequiredService<IConfiguration>();
             var credentialsSection = config.GetSection("AdminCredentials");
             if (!credentialsSection.Exists())
