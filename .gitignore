@@ -365,6 +365,9 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /ConsoleUI/credentials.json
+<<<<<<< HEAD
 /ConsoleUI/appsettings.json
 /ConsoleUI/credentials.json
 /ConsoleUI/credentials.json
+=======
+>>>>>>> main
