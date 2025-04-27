@@ -29,7 +29,6 @@ namespace ConsoleUI
                     config.SetBasePath(Directory.GetCurrentDirectory())
                        .AddJsonFile("appsettings.json", false, true)
                        .AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", true, true)
-                       .AddUserSecrets<Program>(optional: true)
                        .AddJsonFile("credentials.json", optional: true, reloadOnChange: true)
                        .AddEnvironmentVariables();
                 })
@@ -62,6 +61,18 @@ namespace ConsoleUI
                     services.AddSingleton<IInputServiceFactory, InputServiceFactory>();
                 })
                 .Build();
+
+            var config = host.Services.GetRequiredService<IConfiguration>();
+            var credentialsSection = config.GetSection("AdminCredentials");
+            if (string.IsNullOrEmpty(credentialsSection.Value))
+            {
+                Console.WriteLine();
+                Log.Logger.Error("Missing file 'credentials.json'");
+                Log.Logger.Error("Create the file in app root folder and fill it with valid admin credentials");
+                Log.Logger.Error("Check ReadME.md for more information");
+                Console.ReadKey();
+                Environment.Exit(1);
+            }
 
             var svc = host.Services.GetRequiredService<WorkflowService>();
             return svc.Run();

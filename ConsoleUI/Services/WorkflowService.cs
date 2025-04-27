@@ -4,7 +4,6 @@ using Spectre.Console;
 using ConsoleUI.Enums;
 using TradeApiCaller.Authentication;
 using Serilog;
-using Microsoft.Extensions.Hosting;
 
 namespace ConsoleUI.Services
 {
