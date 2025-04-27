@@ -35,7 +35,10 @@ namespace ConsoleUI.Services
                 Console.WriteLine();
                 Log.Logger.Error(ex.Message);
                 Log.Logger.Error("Add valid admin credentials and run the app again");
-                Environment.Exit(1);
+                Console.WriteLine();
+                Log.Logger.Error("Press any key to close the app...");
+                Console.ReadKey();
+                return;
             }
 
             try
