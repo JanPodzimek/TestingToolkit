@@ -64,7 +64,7 @@ namespace ConsoleUI
 
             var config = host.Services.GetRequiredService<IConfiguration>();
             var credentialsSection = config.GetSection("AdminCredentials");
-            if (string.IsNullOrEmpty(credentialsSection.Value))
+            if (credentialsSection == null)
             {
                 Console.WriteLine();
                 Log.Logger.Error("Missing file 'credentials.json'");
