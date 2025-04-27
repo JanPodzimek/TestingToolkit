@@ -70,6 +70,8 @@ namespace ConsoleUI
                 Log.Logger.Error("Missing file 'credentials.json'");
                 Log.Logger.Error("Create the file in app root folder and fill it with valid admin credentials");
                 Log.Logger.Error("Check ReadME.md for more information");
+                Console.WriteLine();
+                Log.Logger.Information("Press any key to close the app...");
                 Console.ReadKey();
                 Environment.Exit(1);
             }

@@ -19,17 +19,6 @@ namespace ConsoleUI.Services
 
             Log.Logger.Information("Retrieving authorization token for API calls...");
 
-            var credentialsSection = config.GetSection("AdminCredentials");
-            if (string.IsNullOrEmpty(credentialsSection.Key))
-            {
-                Console.WriteLine();
-                Log.Logger.Error("Missing file 'credentials.json'");
-                Log.Logger.Error("Create the file in app root folder and fill it with valid admin credentials");
-                Log.Logger.Error("Check ReadME.md for more information");
-                Console.ReadKey();
-                Environment.Exit(1);
-            }
-
             var login = config.GetValue<string>("AdminCredentials:Login");
             var password = config.GetValue<string>("AdminCredentials:Password");
             string token = string.Empty;
