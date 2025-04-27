@@ -18,6 +18,10 @@
             {
                 return $"The EntityModel with identifier '{hashId}' was not found.";
             }
+            catch (HttpRequestException ex) when (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
+            {
+                return $"Access denied. Response status code 403: Forbidden. Insufficient admin rights.";
+            }
 
             string result = await response.Content.ReadAsStringAsync();
             result = validInt ? $"HashId: {result.Trim('"')}" : $"Id: {result}";

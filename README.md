@@ -7,17 +7,15 @@ This repository is divided into four projects:
 - **UserProcessor**
 - **TradeApiCaller**
 
-Each of them is described separately below.
-
----
+Each project is described below.
 
 ## First Run Setup
 
-Before you can use the app for the first time, please follow these steps:
+Before you can use the app, your login credentials have to be set:
 
 - **Download and extract** the app files.
 - **Run the executable** (`.exe`) file.
-- If `credentials.json` is **missing**, the app will automatically create a blank one **or** you can create it manually.
+- The app will automatically create a `credentials.json` file in app's root folder at first run time **or** you can create it manually before the first run.
 - If you create it manually, use the following format:
 
 ```json
@@ -28,13 +26,18 @@ Before you can use the app for the first time, please follow these steps:
   }
 }
 ```
+- The file must be called `credentials.json`
 
 - **Fill in your credentials** inside the `credentials.json` file.
 - **Save** the file.
-- **Restart** the application.
+- **Run** the application again (In case the file was created automatically at runtime).
 
 > **Important:**  
 > Make sure `credentials.json` is placed in the **same folder** as the `.exe` file.
+
+> **Important:**  
+> If your admin account is not in **RightGroup = 1**, `HashId` feature won't work for you.
+> You can verify that in Partners DB, dbo.AdminUserRightGroup
 
 After completing these steps, the app will load your credentials correctly and you will have access to all features.
 
@@ -42,7 +45,8 @@ After completing these steps, the app will load your credentials correctly and y
 
 ## ConsoleUI
 
-The `ConsoleUI` project serves as a simple user interface for the app.  
+The `ConsoleUI` project serves as a simple user interface for the app.
+It's optimazed for Windows 11. On older versions UI does not have to shown correctly.
 Users can navigate through the menu using **arrow keys** and confirm their actions with **Enter**.
 
 > **Note:**  
